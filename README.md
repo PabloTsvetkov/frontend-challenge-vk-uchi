@@ -1,73 +1,60 @@
-# React + TypeScript + Vite
+# Кошачий пинтерест
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Тестовое для стажировки (описание задания — в [`Task.md`](./Task.md)).
 
-Currently, two official plugins are available:
+## Как запустить локально
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Скопируйте `.env.example` в `.env` и впишите ключ [TheCatAPI](https://thecatapi.com) в `VITE_CAT_API_KEY` (без ключа тоже хорошо работает, но ответы будут приходить по 10 картинок).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Сборка и превью:
+
+```bash
+npm run build
+npm run preview
+```
+
+**Сайт опубликован на GitHubPages по ссылке:** [`https://pablotsvetkov.github.io/frontend-challenge-vk-uchi/`](https://pablotsvetkov.github.io/frontend-challenge-vk-uchi/)
+
+---
+
+## Стек
+
+- **React + TypeScript + Vite** - быстрая разработка и простой билд
+- **React Router** — для роутинга: все котики / любимые.
+- **CSS Modules**
+
+- ***Context API** - не использовал, потому что посчитал излишним в таком небольшом приложении*
+
+---
+
+## Что сделано по ТЗ
+
+- лента с [TheCatAPI](https://thecatapi.com), ориентир по макету — [Figma](https://bit.ly/3utxaL2). Делал дизайн в точности по макету
+- по умолчанию открывается **«Все котики»**;
+- лайк: в избранное / убрать;
+- избранное хранится только на клиенте в localStorage;
+- вкладка **«Любимые котики»** — только добавленные;
+- **адаптив** — сетка и размеры карточек под разные ширины. Легкий адаптив - два брейкпоинта - меняются размеры самих карточек + на сенсорных экранах кнопка лайка показывается всегда 
+- **бесконечная подгрузка** — intersection observer + догрузка страниц API.
+
+---
+
+## Заметки
+
+**Иконка лайка** — единственное, что поменял из макета, потому что были три разные иконки, у которых разные контуры (с обводкой и с заливкой). Поэтому разбил свг на два контура, чтобы можно было работать и с "контуром" и с заливкой внутри. За основу взял свг из фигмы только с контуром.
+
+**Контекст не поднимал** — состояние котиков и избранного в `useCats`, вниз прокидывается через `App` и пропсы. Посчитал, что контекст излишен
+
+**`.env`** — ключ не в репозитории, есть `.env.example`. Локально все из `VITE_CAT_API_KEY`. На GitHub в репозиторий добавил в секреты свой АПИ ключ (на самом деле по большей части из интереса, потому что раньше с секретами на гитхабе не работал) - работает, ключ добавляется в хедер и приходят по 20 картинок (просто в лимитах указал, чтобы запрашивалось по 20 картинок, а не по 10 как обычно).
+
+**Адаптив** — в гриде меняются размер ячейки и отступы; на устройствах с грубым указателем (`pointer: coarse`) сердечко на карточке всегда видно не только по hover.
+
+**HashRouter** — для GitHub Pages: статика не умеет отдавать `index.html` на любой путь, а с хэшем (`#/`, `#/favorite`) все открывается без 404. В `vite.config` выставлен `base` под имя репо.
