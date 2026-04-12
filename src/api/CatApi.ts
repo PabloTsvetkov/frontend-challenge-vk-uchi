@@ -6,6 +6,8 @@ export async function getCats(
 ): Promise<Cat[]> {
   const API_KEY = import.meta.env.VITE_CAT_API_KEY;
 
+  console.log(API_KEY);
+
   const response = await fetch(
     `https://api.thecatapi.com/v1/images/search?limit=${String(limit)}&page=${String(page)}`,
     {
