@@ -1,0 +1,75 @@
+.imageCardContainer {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.imageCardContainer:hover {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.imageCardContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.likeContainer {
+    position: absolute;
+    right: 28px;
+    bottom: 28px;
+    width: 40px;
+    height: 40px;
+}
+
+.imageCardContainer svg {
+    display: none;
+}
+
+.imageCardContainer:hover svg {
+    --like-fill-color: transparent;
+    --like-stroke-color: #F24E1E;
+    display: block;
+    cursor: pointer;
+}
+
+.imageCardContainer svg:hover {
+    --like-fill-color: #F24E1E;
+    --like-stroke-color: #F24E1E;
+}
+
+.imageCardContainer.liked:hover svg {
+    --like-fill-color: #FF3A00;
+    --like-stroke-color: #FF3A00;
+}
+
+@media (pointer: coarse) {
+    .imageCardContainer svg {
+        display: block;
+    }
+
+    .imageCardContainer.liked svg {
+        --like-fill-color: #FF3A00;
+        --like-stroke-color: #FF3A00;
+    }
+}
+
+@media screen and (max-width: 826px) {
+    .likeContainer {
+        right: 18px;
+        bottom: 18px;
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .likeContainer {
+        right: 16px;
+        bottom: 16px;
+        width: 22px;
+        height: 22px;
+    }
+}

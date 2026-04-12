@@ -1,0 +1,27 @@
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 225px);
+    grid-auto-rows: 225px;
+    justify-content: center;
+    max-width: calc(225px * 5 + 48px * 4);
+    width: 100%;
+    gap: 48px;
+}
+
+@media screen and (max-width: 826px) {
+    .gridContainer {
+        grid-auto-rows: 150px;
+        grid-template-columns: repeat(auto-fill, 150px);
+        max-width: calc(150px * 5 + 30px * 4);
+        gap: 30px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .gridContainer {
+        grid-auto-rows: 120px;
+        grid-template-columns: repeat(auto-fill, 120px);
+        max-width: calc(120px * 3 + 20px * 2);
+        gap: 20px;
+    }
+}
